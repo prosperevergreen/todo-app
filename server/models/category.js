@@ -19,6 +19,6 @@ const categorySchema = new Schema({
 // Omit the version key when serialized to JSON
 categorySchema.set("toJSON", { virtuals: false, versionKey: false });
 
-const Category = new mongoose.model("Order", categorySchema);
+const Category = new mongoose.model("Category", categorySchema);
 
 module.exports = Category;

@@ -1,18 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
-const dbUtils = require("../services/databaseUtils");
+const dbUtils = require("../utility/databaseUtils");
 const Todo = require("../models/todo.js");
 
-/* GET todo by id. */
-router.get("/:todoId", async function (req, res) {
-	const todoId = req.params.todoId;
+/* GET todo by categoryId. */
+router.get("/:categoryId", async function (req, res) {
+	const categoryId = req.params.categoryId;
 	try {
-		const todo = await dbUtils.getItemById(Todo, todoId);
+		const todo = await dbUtils.getItemByField(Todo, {categoryId});
 		res.json(todo);
-	} catch (err) {
-		console.log(err);
-		res.json({ err });
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error });
 	}
 });
 
@@ -21,9 +21,9 @@ router.get("/", async function (req, res) {
 	try {
 		const todoItems = await dbUtils.getItemByField(Todo);
 		res.json(todoItems);
-	} catch (err) {
-		console.log(err);
-		res.json({ err });
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error });
 	}
 });
 
@@ -34,9 +34,9 @@ router.post("/", async function (req, res) {
 	try {
 		const todo = await dbUtils.addItem(Todo, newTodo);
 		res.json(todo);
-	} catch (err) {
-		console.log(err);
-		res.json({ err });
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error });
 	}
 });
 
@@ -52,9 +52,9 @@ router.put("/:todoId", async function (req, res) {
 			modifiedTodo
 		);
 		res.json(todo);
-	} catch (err) {
-		console.log(err);
-		res.json({ err });
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error });
 	}
 });
 
@@ -65,9 +65,9 @@ router.delete("/:todoId", async function (req, res) {
 	try {
 		const todo = await dbUtils.deleteItemById(Todo, todoId);
 		res.json(todo);
-	} catch (err) {
-		console.log(err);
-		res.json({ err });
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error });
 	}
 });
 

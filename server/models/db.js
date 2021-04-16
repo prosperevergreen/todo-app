@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const User = require("../models/user.js");
 /**
  * Open connection to Mongodb for CRUD operations
  *
@@ -21,13 +21,19 @@ function connectDB(dbURL) {
 				autoIndex: true,
 			})
 			.catch(handleCriticalError);
-      mongoose.connection.on("error", handleCriticalError);
+		mongoose.connection.on("error", handleCriticalError);
 
-      mongoose.connection.on("connected", (data) => {
-        console.log("Successfully connected to Mongodb");
-      });
+		mongoose.connection.on("connected", (data) => {
+			console.log("Successfully connected to Mongodb");
+			User.countDocuments({}).then((count) => {
+				if (count === 0) {
+					const defaultUsers = require("../database/defaultData");
+					User.create(defaultUsers);
+				}
+			});
+		});
 
-      mongoose.connection.on("reconnectFailed", handleCriticalError);
+		mongoose.connection.on("reconnectFailed", handleCriticalError);
 	}
 }
 

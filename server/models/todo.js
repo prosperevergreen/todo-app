@@ -23,6 +23,6 @@ const todoSchema = new Schema({
 // Omit the version key when serialized to JSON
 todoSchema.set("toJSON", { virtuals: false, versionKey: false });
 
-const Todo = new mongoose.model("Sandwich", todoSchema);
+const Todo = new mongoose.model("Todo", todoSchema);
 
 module.exports = Todo;
