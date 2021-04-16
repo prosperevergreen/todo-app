@@ -1,0 +1,74 @@
+version: "3"
+services:
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes: 
+      - ./server/database/mongo:/data/db
+    networks:
+      - backend
+
+  server:
+    container_name: server
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./server
+    volumes: # Dev Mode
+      - ./server/:/usr/src/app/ # Dev Mode
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    networks:
+      # - frontend
+      - backend
+    environment:
+      WAIT_HOSTS: mongodb:27017
+      WAIT_AFTER_HOSTS: 2
+      ACCESS_TOKEN_SECRET: 8658903a27c74956aaef36c8df78034c7cb6750c239e9f972a8c3ce9fdcab36db552a06b4f82bfce615818edba9c3e6602818ecfdc35a5fda122e2bc2644d8b9
+    command: sh -c "/wait && npm run dev" # Dev Mode
+
+  # server-b:
+  #   container_name: server-b
+  #   restart: always
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./backend/server-b
+  #   volumes: # Dev Mode
+  #     - ./backend/server-b/:/usr/src/app/ # Dev Mode
+  #   ports:
+  #     - "5002:5002"
+  #   depends_on:
+  #     - server-a
+  #   networks:
+  #     - backend
+  #   environment:
+  #     WAIT_HOSTS: server-a:5001
+  #     WAIT_AFTER_HOSTS: 1
+  #   command: sh -c "/wait && nodemon app.js" # Dev Mode
+
+  # sandwich-app:
+  #   container_name: sandwich-app
+  #   restart: always
+  #   build: ./sandwich-app
+  #   volumes:
+  #     - ./sandwich-app/:/app/
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - server1
+  #   networks:
+  #     - frontend
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true
+  #   stdin_open: true
+
+networks:
+  backend:
+    driver: bridge
+  # frontend:
+  #   driver: bridge
