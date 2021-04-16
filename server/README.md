@@ -57,6 +57,41 @@ REQUEST-HEADER: `"Authorisation" : "Basic username:password"`
 }
 ```
 
+## GET ALL USERS (Only for admin or root user)
+
+To **get** an array of all the users, the client should make a `GET` request to http://localhost:5000/api/user/ with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+
+### EXAMPLE REQUEST
+
+METHOD: `GET`  
+ENDPOINT: `http://localhost:5000/api/user`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+
+### EXAMPLE RESPONSE
+
+```json
+[
+    {
+        "_id": "6078f418582ec803162d61f7",
+        "username": "test",
+        "createdOn": "2021-04-16T02:19:04.649Z",
+        "__v": 0
+    },
+    {
+        "_id": "6078f418582ec803162d61f8",
+        "username": "john",
+        "createdOn": "2021-04-16T02:19:04.718Z",
+        "__v": 0
+    },
+    {
+        "_id": "6079587cd95aa313e5e0eba4",
+        "username": "root",
+        "createdOn": "2021-04-16T09:27:25.008Z",
+        "__v": 0
+    }
+]
+```
+
 ## RESET USERS (Only for admin or root user)
 
 For easier testing, this endpoint was made to create delete and users and create a certain number of user with defined details. To reset the user collection, the client should make a `DELETE` request to http://localhost:5000/api/user with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
