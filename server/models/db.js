@@ -20,16 +20,14 @@ function connectDB(dbURL) {
 				useCreateIndex: true,
 				autoIndex: true,
 			})
-			.then(() => {
-				mongoose.connection.on("error", handleCriticalError);
-
-				mongoose.connection.on("connected", (data) => {
-					console.log("Successfully connected to Mongodb", data);
-				});
-
-				mongoose.connection.on("reconnectFailed", handleCriticalError);
-			})
 			.catch(handleCriticalError);
+      mongoose.connection.on("error", handleCriticalError);
+
+      mongoose.connection.on("connected", (data) => {
+        console.log("Successfully connected to Mongodb");
+      });
+
+      mongoose.connection.on("reconnectFailed", handleCriticalError);
 	}
 }
 

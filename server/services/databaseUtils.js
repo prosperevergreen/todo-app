@@ -66,7 +66,7 @@ function updateItem(Model, itemId, newItem) {
  * @returns { Promise<object> } 
  */
 function resetItems(Model, defaultItem = null) {
-	return Model.deleteMany({}).then(() => defaultItem && addSandwich(defaultItem));
+	return Model.deleteMany({}).then(async () => defaultItem && await addItem(Model, defaultItem));
 }
 
 module.exports = {

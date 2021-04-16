@@ -44,23 +44,7 @@ router.get("/", async function (req, res) {
 	}
 });
 
-/* Add a new user. */
-router.post("/reset", async function (req, res) {
-	const newUser = req.body;
-	try {
-		const user = await dbUtils.resetItems(User, newUser);
 
-    const clientData = user.toObject();
-
-		// delete the user's password
-		delete clientData.password;
-
-		res.json(clientData);
-	} catch (err) {
-		console.log(err);
-		res.json({ err });
-	}
-});
 
 /* Add a new user. */
 router.put("/:userId", async function (req, res) {
@@ -94,6 +78,26 @@ router.delete("/:userId", async function (req, res) {
 		// delete the user's password
 		delete clientData.password;
 		res.json(clientData);
+	} catch (err) {
+		console.log(err);
+		res.json({ err });
+	}
+});
+
+/* reset the user collection. */
+router.delete("/", async function (req, res) {
+	const newUser = require("../database/testData");
+  
+	try {
+		const userArr = await dbUtils.resetItems(User, newUser);
+    const clientDataArr = userArr.map(user => {
+      const client =  user.toObject();
+      // delete the user's password
+      delete client.password;
+      return client
+    })
+
+		res.json(clientDataArr);
 	} catch (err) {
 		console.log(err);
 		res.json({ err });
