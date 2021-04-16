@@ -50,7 +50,7 @@ const userSchema = new Schema({
 		set: hashPwd,
 		required: true,
 	},
-	date: {
+	createdOn: {
 		type: Date,
 		default: Date.now,
 	},

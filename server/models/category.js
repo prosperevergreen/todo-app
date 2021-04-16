@@ -10,7 +10,7 @@ const categorySchema = new Schema({
 		type: String,
 		required: true,
 	},
-	date: {
+	createdOn: {
 		type: Date,
 		default: Date.now,
 	},

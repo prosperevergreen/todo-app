@@ -14,7 +14,7 @@ const todoSchema = new Schema({
 		type: Boolean,
 		default: false,
 	},
-	date: {
+	createdOn: {
 		type: Date,
 		default: Date.now,
 	},

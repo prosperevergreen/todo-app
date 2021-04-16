@@ -15,7 +15,7 @@ const authWithBasic = (request) => {
 	const response = { data: null, errorCode: null, errorMsg: null };
 	//Get contents of authentication-header format <type> <credentials>
 	const authHead = request.headers["authorization"];
-	if (!authHead) return; // no auth header
+	if (!authHead) return { ...response, errorCode: 401, errorMsg: "No authentication header" }; // bad auth type; // no auth header
 	// {
 	//Divide contents to type and credentials
 	const authorization = authHead.split(" ");
@@ -109,6 +109,20 @@ const verifyToken = async (req, res, next) => {
 	next();
 };
 
+const verifiedUserData = (req) =>{
+    const authHead = req.headers["authorization"];
+    //Divide contents to type and credentials
+	const token = authHead.split(" ")[1];
+    return jwt.verify(
+		token,
+		process.env.ACCESS_TOKEN_SECRET,
+		(err, userDetails) => {
+			if (err) return err;
+			return userDetails;
+		}
+	);
+}
+
 /**
  * Creates a new token for the given credential
  *
@@ -130,4 +144,7 @@ const createJWTWebToken = (credentials) => {
 	return { ...response, data: token };
 };
 
-module.exports = { createJWTWebToken, verifyToken, authWithBasic };
+
+
+
+module.exports = { createJWTWebToken, verifyToken, authWithBasic, verifiedUserData};

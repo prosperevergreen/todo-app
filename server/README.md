@@ -25,7 +25,7 @@ REQUEST-HEADER: `"Authorisation" : "Basic username:password"`
     "user": {
         "_id": "6078d1a072e3d9032896343a",
         "username": "username",
-        "date": "2021-04-15T23:52:00.891Z",
+        "createdOn": "2021-04-15T23:52:00.891Z",
         "__v": 0
     },
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImlhdCI6MTYxODUzMDcyMH0.oolsilUBXSpMAQLAu-t0fK-ahhWWN-d3LID7-yJHljA"
@@ -51,7 +51,7 @@ REQUEST-HEADER: `"Authorisation" : "Basic username:password"`
     "user": {
         "_id": "6078d1a072e3d9032896343a",
         "username": "username",
-        "date": "2021-04-15T23:52:00.891Z",
+        "createdOn": "2021-04-15T23:52:00.891Z",
         "__v": 0
     },
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImlhdCI6MTYxODUzMDg5MX0.SCE2g3M7UXbHo3V--GIqQP0C6YQlQuXZnhSdzNMhxaM"
@@ -73,7 +73,6 @@ REQUEST-BODY:
 
 ```javascript
 {
-	"userId": "6078d1a072e3d9032896343a"
 	"name": "education"
 }
 ```
@@ -85,7 +84,7 @@ REQUEST-BODY:
     "_id": "6078dc349fc739052344f8c6",
     "userId": "6078d1a072e3d9032896343a",
     "name": "education",
-    "date": "2021-04-16T00:37:08.741Z"
+    "createdOn": "2021-04-16T00:37:08.741Z"
 }
 ```
 
@@ -96,7 +95,7 @@ To get an array of all the categories for a user, the client should make a `GET`
 ### EXAMPLE REQUEST
 
 METHOD: `GET`
-ENDPOINT: `http://localhost:5000/api/category/6078d1a072e3d9032896343a`
+ENDPOINT: `http://localhost:5000/api/category/`
 REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
@@ -107,17 +106,65 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 		_id: "6078dc349fc739052344f8c6",
 		userId: "6078d1a072e3d9032896343a",
 		name: "education",
-		date: "2021-04-16T00:37:08.741Z",
+		createdOn: "2021-04-16T00:37:08.741Z",
 	},
 	{
 		_id: "6078dc349fc739052344f8c6",
 		userId: "6078d1a072e3d9032896343a",
 		name: "music",
-		date: "2021-04-16T00:42:18.741Z",
-	}
+		createdOn: "2021-04-16T00:42:18.741Z",
+	},
 ];
 ```
 
+## MODIFY CATEGORY
+
+To modify a category, the client should make a `PUT` request to http://localhost:5000/api/category/:categoryId with the authorisation header containing the token generated during login/register of the user in the format `Bearer token`.
+
+### EXAMPLE REQUEST
+
+METHOD: `PUT`
+ENDPOINT: `http://localhost:5000/api/category/6078dc349fc739052344f8c6`
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+
+```javascript
+{
+	"name": "music"
+}
+```
+
+### EXAMPLE RESPONSE
+
+```javascript
+{
+    "_id": "6078dc349fc739052344f8c6",
+    "userId": "6078d1a072e3d9032896343a",
+    "name": "education",
+    "createdOn": "2021-04-16T00:37:08.741Z"
+}
+```
+**Note: Old value is returned**
+
+## DELETE CATEGORY
+
+To delete a category, the client should make a `DELETE` request to http://localhost:5000/api/category/:categoryId with the authorisation header containing the token generated during login/register of the user in the format `Bearer token`.
+
+### EXAMPLE REQUEST
+
+METHOD: `DELETE`
+ENDPOINT: `http://localhost:5000/api/category/6078dc349fc739052344f8c6`
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+
+### EXAMPLE RESPONSE
+
+```javascript
+{
+    "_id": "6078dc349fc739052344f8c6",
+    "userId": "6078d1a072e3d9032896343a",
+    "name": "music",
+    "createdOn": "2021-04-16T00:37:08.741Z"
+}
+```
 # Todo Endpoint
 
 # User EndPoint
