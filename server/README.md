@@ -293,7 +293,7 @@ REQUEST-BODY:
 
 ## GET ALL TODO ITEMS FOR CATEGORIES
 
-To get an array of all the categories for a user, the client should make a `GET` request to http://localhost:5000/api/todo/:categoryId with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To get an array of all todo items of a categories, the client should make a `GET` request to http://localhost:5000/api/todo/:categoryId with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
@@ -373,5 +373,35 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
     "categoryId": "60794051aea3f400c0354ecd",
     "createdOn": "2021-04-16T08:51:00.215Z"
 }
+```
+## DELETE ALL TODO ITEMS FOR CATEGORIES
+
+To **DELETE** all todo items of a categories, the client should make a `DELETE` request to http://localhost:5000/api/todo/many/:categoryId with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+
+### EXAMPLE REQUEST
+
+METHOD: `DELETE`  
+ENDPOINT: `http://localhost:5000/api/todo/many/60794051aea3f400c0354ecd`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+
+### EXAMPLE RESPONSE
+
+```javascript
+[
+	{
+		done: false,
+		_id: "60794fb60d70520fe434c211",
+		name: "cook food",
+		categoryId: "60794051aea3f400c0354ecd",
+		createdOn: "2021-04-16T08:49:58.892Z",
+	},
+	{
+		done: false,
+		_id: "60794ff40d70520fe434c212",
+		name: "clean the room",
+		categoryId: "60794051aea3f400c0354ecd",
+		createdOn: "2021-04-16T08:51:00.215Z",
+	},
+];
 ```
 

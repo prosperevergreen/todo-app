@@ -58,6 +58,17 @@ router.put("/:todoId", async function (req, res) {
 	}
 });
 
+/* DELETE todo by categoryid. */
+router.delete("/many/:categoryId", async function (req, res) {
+	const categoryId = req.params.categoryId;
+	try {
+		const todo = await dbUtils.deleteItemByField(Todo, {categoryId});
+		res.json(todo);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error });
+	}
+});
 
 /* DELETE todo by id. */
 router.delete("/:todoId", async function (req, res) {
@@ -70,6 +81,8 @@ router.delete("/:todoId", async function (req, res) {
 		res.status(500).json({ error });
 	}
 });
+
+
 
 
 

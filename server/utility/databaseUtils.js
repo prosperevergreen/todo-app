@@ -34,6 +34,18 @@ function deleteItemById(Model, itemId) {
 }
 
 /**
+ * Deletes many documents from a collection by field property and returns the deleted document
+ * 
+ * @param {object} Model Mongoose Model for the item required
+ * @param {string} itemId id of the document
+ * @returns { Promise<object> } 
+ */
+ function deleteItemByField(Model, field) {
+	 if(!field) return [];
+	return Model.deleteMany(field).then((item) => item);
+}
+
+/**
  * Adds a document into a collection and returns the added document
  * 
  * @param {object} Model Mongoose Model for the item required
@@ -75,5 +87,6 @@ module.exports = {
 	addItem,
 	updateItem,
 	resetItems,
-    getItemByField
+    getItemByField,
+	deleteItemByField
 };
