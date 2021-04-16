@@ -40,7 +40,7 @@ To login an existing user, the client should make a `GET` request to http://loca
 METHOD: `GET`  
 ENDPOINT: `http://localhost:5000/api/auth`  
 REQUEST-HEADER: `"Authorisation" : "Basic username:password"`  
-**Note:** `"username:password"` must be encoded to **base-64** (e.g using btoa() as in JavaScript)
+**Note:** `"username:password"` must be encoded to **base-64** (e.g using `btoa()` as in JavaScript)
 
 ### EXAMPLE RESPONSE
 
@@ -94,7 +94,7 @@ To get an array of all the categories for a user, the client should make a `GET`
 
 METHOD: `GET`  
 ENDPOINT: `http://localhost:5000/api/category/`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
@@ -123,7 +123,7 @@ To modify a category, the client should make a `PUT` request to http://localhost
 
 METHOD: `PUT`  
 ENDPOINT: `http://localhost:5000/api/category/6078dc349fc739052344f8c6`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ```javascript
 {
@@ -141,6 +141,7 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
     "createdOn": "2021-04-16T00:37:08.741Z"
 }
 ```
+
 **Note: Old value is returned**
 
 ## DELETE CATEGORY
@@ -151,7 +152,7 @@ To delete a category, the client should make a `DELETE` request to http://localh
 
 METHOD: `DELETE`  
 ENDPOINT: `http://localhost:5000/api/category/6078dc349fc739052344f8c6`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
@@ -172,35 +173,35 @@ To reset the user collection, the client should make a `DELETE` request to http:
 
 METHOD: `DELETE`  
 ENDPOINT: `http://localhost:5000/api/user`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
 ```javascript
 [
-    {
-        "_id": "6078f418582ec803162d61f7",
-        "username": "test",
-        "createdOn": "2021-04-16T02:19:04.649Z",
-        "__v": 0
-    },
-    {
-        "_id": "6078f418582ec803162d61f8",
-        "username": "john",
-        "createdOn": "2021-04-16T02:19:04.718Z",
-        "__v": 0
-    },
-    {
-        "_id": "6078f418582ec803162d61f9",
-        "username": "Jane",
-        "createdOn": "2021-04-16T02:19:04.786Z",
-        "__v": 0
-    }
-]
+	{
+		_id: "6078f418582ec803162d61f7",
+		username: "test",
+		createdOn: "2021-04-16T02:19:04.649Z",
+		__v: 0,
+	},
+	{
+		_id: "6078f418582ec803162d61f8",
+		username: "john",
+		createdOn: "2021-04-16T02:19:04.718Z",
+		__v: 0,
+	},
+	{
+		_id: "6078f418582ec803162d61f9",
+		username: "Jane",
+		createdOn: "2021-04-16T02:19:04.786Z",
+		__v: 0,
+	},
+];
 ```
-
-Note: This are the username of the registered user. The current user would need to login with the provided details
+**Note:** These are the **only** registered users. There details could be used to login in order to get a **new token**.
 
 # Todo Endpoint
-
+To be completed soon
 # User EndPoint
+To be completed soon
