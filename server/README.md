@@ -12,10 +12,9 @@ To register a new user, the client should make a `POST` request to http://localh
 
 ### EXAMPLE REQUEST
 
-METHOD: `POST`
-ENDPOINT: `http://localhost:5000/api/auth`
-REQUEST-HEADER: `"Authorisation" : "Basic username:password"`
-
+METHOD: `POST`  
+ENDPOINT: `http://localhost:5000/api/auth`  
+REQUEST-HEADER: `"Authorisation" : "Basic username:password"`  
 **Note:** `"username:password"` must be encoded to **base-64** (e.g using btoa() as in JavaScript)
 
 ### EXAMPLE RESPONSE
@@ -38,10 +37,9 @@ To login an existing user, the client should make a `GET` request to http://loca
 
 ### EXAMPLE REQUEST
 
-METHOD: `GET`
-ENDPOINT: `http://localhost:5000/api/auth`
-REQUEST-HEADER: `"Authorisation" : "Basic username:password"`
-
+METHOD: `GET`  
+ENDPOINT: `http://localhost:5000/api/auth`  
+REQUEST-HEADER: `"Authorisation" : "Basic username:password"`  
 **Note:** `"username:password"` must be encoded to **base-64** (e.g using btoa() as in JavaScript)
 
 ### EXAMPLE RESPONSE
@@ -66,9 +64,9 @@ To add a new category of todos, the client should make a `POST` request to http:
 
 ### EXAMPLE REQUEST
 
-METHOD: `POST`
-ENDPOINT: `http://localhost:5000/api/category`
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+METHOD: `POST`  
+ENDPOINT: `http://localhost:5000/api/category`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
 REQUEST-BODY:
 
 ```javascript
@@ -94,9 +92,9 @@ To get an array of all the categories for a user, the client should make a `GET`
 
 ### EXAMPLE REQUEST
 
-METHOD: `GET`
-ENDPOINT: `http://localhost:5000/api/category/`
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+METHOD: `GET`  
+ENDPOINT: `http://localhost:5000/api/category/`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
 
 ### EXAMPLE RESPONSE
 
@@ -123,9 +121,9 @@ To modify a category, the client should make a `PUT` request to http://localhost
 
 ### EXAMPLE REQUEST
 
-METHOD: `PUT`
-ENDPOINT: `http://localhost:5000/api/category/6078dc349fc739052344f8c6`
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+METHOD: `PUT`  
+ENDPOINT: `http://localhost:5000/api/category/6078dc349fc739052344f8c6`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
 
 ```javascript
 {
@@ -151,9 +149,9 @@ To delete a category, the client should make a `DELETE` request to http://localh
 
 ### EXAMPLE REQUEST
 
-METHOD: `DELETE`
-ENDPOINT: `http://localhost:5000/api/category/6078dc349fc739052344f8c6`
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+METHOD: `DELETE`  
+ENDPOINT: `http://localhost:5000/api/category/6078dc349fc739052344f8c6`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
 
 ### EXAMPLE RESPONSE
 
@@ -172,9 +170,9 @@ To reset the user collection, the client should make a `DELETE` request to http:
 
 ### EXAMPLE REQUEST
 
-METHOD: `DELETE`
-ENDPOINT: `http://localhost:5000/api/user`
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+METHOD: `DELETE`  
+ENDPOINT: `http://localhost:5000/api/user`  
+REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
 
 ### EXAMPLE RESPONSE
 
