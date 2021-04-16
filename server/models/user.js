@@ -30,19 +30,22 @@ const hashPwd = (pwd) => {
 
 const userSchema = new Schema({
 	// Mongoose automatically creates _id (ObjectId) to all schemas
-	username: {
-		// Validation for name
+	// username: {
+	// 	// Validation for name
+	// 	type: String,
+	// 	required: true,
+	// 	unique: true,
+	// },
+	email: {
 		type: String,
-		required: true,
-		unique: true,
+		required: [true, "User email is required"],
+		unique: [true, "User email already exists"],
+		// Using custom validator
+		validate: {
+			validator: emailValidator,
+			message: (props) => `${props.value} is not a valid email format`,
+		},
 	},
-	//   email : {
-	//      type: String,
-	//      required: true,
-	//      unique: true,
-	//      // Using custom validator
-	//      validate: emailValidator,
-	//   },
 	password: {
 		type: String,
 		minlength: 5,

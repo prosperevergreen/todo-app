@@ -1,22 +1,22 @@
 module.exports = [
     {
-        username: "test",
+        email: "test@email.com",
         password: "test"
     },
     {
-        username: "john",
+        email: "john@email.com",
         password: "1234"
     },
     {
-        username: "Jane",
+        email: "Jane@email.com",
         password: "1234"
     },
     {
-        username: "admin",
+        email: "admin@email.com",
         password: "admin"
     },
     {
-        username: "root",
+        email: "root@email.com",
         password: "root"
     }
 ]

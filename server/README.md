@@ -9,14 +9,14 @@ By default, the server creates [default users](./database/defaultData.js).
 
 ## CREATE OR REGISTER USER ENDPOINT
 
-To register a new user, the client should make a `POST` request to http://localhost:5000/api/auth with the authorisation header containing the username and password of the user in the format `Basic username:password`
+To register a new user, the client should make a `POST` request to http://localhost:5000/api/auth with the authorisation header containing the email and password of the user in the format `Basic email:password`
 
 ### EXAMPLE REQUEST
 
 METHOD: `POST`  
 ENDPOINT: `http://localhost:5000/api/auth`  
-REQUEST-HEADER: `"Authorisation" : "Basic username:password"`  
-**Note:** `"username:password"` must be encoded to **base-64** (e.g using btoa() as in JavaScript)
+REQUEST-HEADER: `"Authorisation" : "Basic email:password"`  
+**Note:** `"email:password"` must be encoded to **base-64** (e.g using btoa() as in JavaScript)
 
 ### EXAMPLE RESPONSE
 
@@ -24,7 +24,7 @@ REQUEST-HEADER: `"Authorisation" : "Basic username:password"`
 {
     "user": {
         "_id": "6078d1a072e3d9032896343a",
-        "username": "username",
+        "email": "user@email.com",
         "createdOn": "2021-04-15T23:52:00.891Z",
         "__v": 0
     },
@@ -34,14 +34,14 @@ REQUEST-HEADER: `"Authorisation" : "Basic username:password"`
 
 ## LOGIN USER ENDPOINT
 
-To login an existing user, the client should make a `GET` request to http://localhost:5000/api/auth with the authorisation header containing the username and password of the user in the format `Basic username:password`
+To login an existing user, the client should make a `GET` request to http://localhost:5000/api/auth with the authorisation header containing the email and password of the user in the format `Basic email:password`
 
 ### EXAMPLE REQUEST
 
 METHOD: `GET`  
 ENDPOINT: `http://localhost:5000/api/auth`  
-REQUEST-HEADER: `"Authorisation" : "Basic username:password"`  
-**Note:** `"username:password"` must be encoded to **base-64** (e.g using `btoa()` as in JavaScript)
+REQUEST-HEADER: `"Authorisation" : "Basic email:password"`  
+**Note:** `"email:password"` must be encoded to **base-64** (e.g using `btoa()` as in JavaScript)
 
 ### EXAMPLE RESPONSE
 
@@ -49,7 +49,7 @@ REQUEST-HEADER: `"Authorisation" : "Basic username:password"`
 {
     "user": {
         "_id": "6078d1a072e3d9032896343a",
-        "username": "username",
+        "email": "user@email.come",
         "createdOn": "2021-04-15T23:52:00.891Z",
         "__v": 0
     },
@@ -73,19 +73,19 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 [
     {
         "_id": "6078f418582ec803162d61f7",
-        "username": "test",
+        "email": "test@email.com",
         "createdOn": "2021-04-16T02:19:04.649Z",
         "__v": 0
     },
     {
         "_id": "6078f418582ec803162d61f8",
-        "username": "john",
+        "email": "john@email.com",
         "createdOn": "2021-04-16T02:19:04.718Z",
         "__v": 0
     },
     {
         "_id": "6079587cd95aa313e5e0eba4",
-        "username": "root",
+        "email": "root@email.com",
         "createdOn": "2021-04-16T09:27:25.008Z",
         "__v": 0
     }
@@ -108,19 +108,19 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 [
 	{
 		_id: "6078f418582ec803162d61f7",
-		username: "test",
+		email: "test@email.com",
 		createdOn: "2021-04-16T02:19:04.649Z",
 		__v: 0,
 	},
 	{
 		_id: "6078f418582ec803162d61f8",
-		username: "john",
+		email: "john@email.com",
 		createdOn: "2021-04-16T02:19:04.718Z",
 		__v: 0,
 	},
 	{
 		_id: "6079587cd95aa313e5e0eba4",
-		username: "root",
+		email: "root@email.com",
 		createdOn: "2021-04-16T09:27:25.008Z",
 		__v: 0,
 	},
@@ -144,7 +144,7 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 ```json
 {
     "_id": "6079587cd95aa313e5e0eba4",
-    "username": "root",
+    "email": "root@email.com",
     "createdOn": "2021-04-16T09:27:25.008Z",
     "__v": 0
 }

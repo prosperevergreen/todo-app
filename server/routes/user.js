@@ -10,7 +10,7 @@ const User = require("../models/user.js");
 router.get("/:userId", async function (req, res) {
 	const userId = req.params.userId;
   const currUser = res.locals.userData;
-  if(!["admin", "root"].includes(currUser.username)) return res.status(403).json({ error: "Unauthorised user" });
+  if(!["admin@email.com", "root@email.com"].includes(currUser.email)) return res.status(403).json({ error: "Unauthorised user" });
 	try {
 		const user = await dbUtils.getItemById(User, userId);
     const clientData = user.toObject();
@@ -29,7 +29,7 @@ router.get("/:userId", async function (req, res) {
 /* GET all users. */
 router.get("/", async function (req, res) {
   const currUser = res.locals.userData;
-  if(!["admin", "root"].includes(currUser.username)) return res.status(403).json({ error: "Unauthorised user" });
+  if(!["admin@email.com", "root@email.com"].includes(currUser.email)) return res.status(403).json({ error: "Unauthorised user" });
 	try {
 		const userItems = await dbUtils.getItemByField(User);
     const clientItems = userItems.map(item =>{
@@ -55,7 +55,7 @@ router.put("/:userId", async function (req, res) {
 	const userId = req.params.userId;
 	const modifiedUser = req.body;
   const currUser = res.locals.userData;
-  if(!["admin", "root"].includes(currUser.username)) return res.status(403).json({ error: "Unauthorised user" });
+  if(!["admin@email.com", "root@email.com"].includes(currUser.email)) return res.status(403).json({ error: "Unauthorised user" });
 	try {
 		const user = await dbUtils.updateItem(
 			User,
@@ -78,7 +78,7 @@ router.put("/:userId", async function (req, res) {
 router.delete("/:userId", async function (req, res) {
 	const userId = req.params.userId;
   const currUser = res.locals.userData;
-  if(!["admin", "root"].includes(currUser.username)) return res.status(403).json({ error: "Unauthorised user" });
+  if(!["admin@email.com", "root@email.com"].includes(currUser.email)) return res.status(403).json({ error: "Unauthorised user" });
 	try {
 		const user = await dbUtils.deleteItemById(User, userId);
 		const clientData = user.toObject();
@@ -95,7 +95,7 @@ router.delete("/:userId", async function (req, res) {
 router.delete("/", async function (req, res) {
 	const newUser = require("../database/defaultData");
   const currUser = res.locals.userData;
-  if(!["admin", "root"].includes(currUser.username)) return res.status(403).json({ error: "Unauthorised user" });
+  if(!["admin@email.com", "root@email.com"].includes(currUser.email)) return res.status(403).json({ error: "Unauthorised user" });
 	try {
 		const userArr = await dbUtils.resetItems(User, newUser);
     const clientDataArr = userArr.map(user => {

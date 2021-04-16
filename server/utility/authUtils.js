@@ -3,17 +3,17 @@ const dbUtils = require("./databaseUtils");
 const User = require("../models/user.js");
 
 /**
- * Authenticate user with Basic authentication (Decode, parse and get user credentials (username and password)
+ * Authenticate user with Basic authentication (Decode, parse and get user credentials (email and password)
  * from the Authorization header) and generate token.
  *
  * @param {Request<ParamsDictionary, any, any, qs.ParsedQs, Record<string, any>>} req - Express request object
  * @param {Response<any, Record<string, any>, number>} res - Express response object
  * @param {NextFunction} next - Express next function object
- * @returns {object | statusError} {username, password, token} current user data
+ * @returns {object | statusError} {email, password, token} current user data
  */
 const authWithBasic = (req, res, next) => {
 	// NOTE: The header is base64 encoded as required by the http standard.
-	//       You need to first decode the header back to its original form ("username:password").
+	//       You need to first decode the header back to its original form ("email:password").
 	const response = { data: null, errorCode: null, errorMsg: null };
 	//Get contents of authentication-header format <type> <credentials>
 	const authHead = req.headers["authorization"];
@@ -43,10 +43,10 @@ const authWithBasic = (req, res, next) => {
 			.status(401)
 			.json({ error: "Bad authentication credentials format" }); // no auth data
 	
-	const [uname, password] = creds;
-	const username = uname.toLowerCase();
-	const token = createJWTWebToken({username, password})
-	res.locals.credentials = {username, password, token};
+	const [mail, password] = creds;
+	const email = mail.toLowerCase();
+	const token = createJWTWebToken({email, password})
+	res.locals.credentials = {email, password, token};
 	next();
 };
 
@@ -55,7 +55,7 @@ const authWithBasic = (req, res, next) => {
  *
  * @param {Request<ParamsDictionary, any, any, qs.ParsedQs, Record<string, any>>} req - Express request object
  * @param {Response<any, Record<string, any>, number>} res - Express response object
- * @returns {object | statusError} {username, _id, createdOn} current user data
+ * @returns {object | statusError} {email, _id, createdOn} current user data
  */
 const authWithToken = async (req, res, next) => {
 	const authHead = req.headers["authorization"];
@@ -92,13 +92,13 @@ const authWithToken = async (req, res, next) => {
 			.json({ error: "Invalid authentication token" }); // bad token
 	try {
 		const user = await dbUtils.getItemByField(User, {
-			username: clientData.username,
+			email: clientData.email,
 		});
 		// check is user exists
 		if (user.length === 0)
 			return res
 				.status(401)
-				.json({ error: "No user with the provided username" });
+				.json({ error: "No user with the provided email" });
 
 		// Check if password is correct
 		if (!user[0].checkPassword(clientData.password))
@@ -118,7 +118,7 @@ const authWithToken = async (req, res, next) => {
 /**
  * Creates a new token for the given credential
  *
- * @param {objcet} credentials credential details {username, password}
+ * @param {objcet} credentials credential details {email, password}
  * @returns {objcet} Generated token credential
  */
 const createJWTWebToken = (credentials) => {

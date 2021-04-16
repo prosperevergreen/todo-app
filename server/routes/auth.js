@@ -8,17 +8,17 @@ const User = require("../models/user.js");
 router.get("/", async function (req, res) {
 
 	// extract the auth details
-	const {username, password, token} = res.locals.credentials;
+	const {email, password, token} = res.locals.credentials;
 
 	try {
-		// search user by there username
-		const user = await dbUtils.getItemByField(User, { username });
+		// search user by there email
+		const user = await dbUtils.getItemByField(User, { email });
 
 		// check is user exists
 		if (user.length === 0)
 			return res
 				.status(401)
-				.json({ error: "No user with the provided username" });
+				.json({ error: "No user with the provided email" });
 
 		// Check if password is correct
 		if (!user[0].checkPassword(password))
@@ -39,7 +39,7 @@ router.get("/", async function (req, res) {
 /* REGISTER */
 router.post("/", async function (req, res) {
 
-	const {username, password, token } = res.locals.credentials;
+	const {email, password, token } = res.locals.credentials;
 
 	// Check password length
 	if (password.length < 4)
@@ -47,7 +47,7 @@ router.post("/", async function (req, res) {
 
 	try {
 		// create user
-		const user = await dbUtils.addItem(User, { username, password });
+		const user = await dbUtils.addItem(User, { email, password });
 
 		const clientData = user.toObject();
 

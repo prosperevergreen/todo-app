@@ -21,7 +21,7 @@ router.get("/:categoryId", async function (req, res) {
 router.get("/", async function (req, res) {
 	const user = res.locals.userData;
 	try {
-		const categoryItems = await dbUtils.getItemByField(Category, ["admin", "root"].includes(user.username) ? {} : {userId: user._id} );
+		const categoryItems = await dbUtils.getItemByField(Category, ["admin@email.com", "root@email.com"].includes(user.email) ? {} : {userId: user._id} );
 		res.json(categoryItems);
 	} catch (error) {
 		console.log(error);
