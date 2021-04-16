@@ -88,7 +88,7 @@ REQUEST-BODY:
 
 ## GET ALL CATEGORIES FOR A USER
 
-To get an array of all the categories for a user, the client should make a `GET` request to http://localhost:5000/api/category/:userId with the authorisation header containing the token generated during login/register of the user in the format `Bearer token`.
+To get an array of all the categories for a user, the client should make a `GET` request to http://localhost:5000/api/category with the authorisation header containing the token generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
