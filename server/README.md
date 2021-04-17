@@ -9,13 +9,13 @@ By default, the server creates [default users](./database/defaultData.js).
 
 ## CREATE OR REGISTER USER ENDPOINT
 
-To register a new user, the client should make a `POST` request to http://localhost:5000/api/auth with the authorisation header containing the email and password of the user in the format `Basic email:password`
+To register a new user, the client should make a `POST` request to http://localhost:5000/api/auth with the authorization header containing the email and password of the user in the format `Basic email:password`
 
 ### EXAMPLE REQUEST
 
 METHOD: `POST`  
 ENDPOINT: `http://localhost:5000/api/auth`  
-REQUEST-HEADER: `"Authorisation" : "Basic email:password"`  
+REQUEST-HEADER: `"Authorization" : "Basic email:password"`  
 **Note:** `"email:password"` must be encoded to **base-64** (e.g using btoa() as in JavaScript)
 
 ### EXAMPLE RESPONSE
@@ -34,13 +34,13 @@ REQUEST-HEADER: `"Authorisation" : "Basic email:password"`
 
 ## LOGIN USER ENDPOINT
 
-To login an existing user, the client should make a `GET` request to http://localhost:5000/api/auth with the authorisation header containing the email and password of the user in the format `Basic email:password`
+To login an existing user, the client should make a `GET` request to http://localhost:5000/api/auth with the authorization header containing the email and password of the user in the format `Basic email:password`
 
 ### EXAMPLE REQUEST
 
 METHOD: `GET`  
 ENDPOINT: `http://localhost:5000/api/auth`  
-REQUEST-HEADER: `"Authorisation" : "Basic email:password"`  
+REQUEST-HEADER: `"Authorization" : "Basic email:password"`  
 **Note:** `"email:password"` must be encoded to **base-64** (e.g using `btoa()` as in JavaScript)
 
 ### EXAMPLE RESPONSE
@@ -59,13 +59,13 @@ REQUEST-HEADER: `"Authorisation" : "Basic email:password"`
 
 ## GET ALL USERS (Only for admin or root user)
 
-To **get** an array of all the users, the client should make a `GET` request to http://localhost:5000/api/user/ with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To **get** an array of all the users, the client should make a `GET` request to http://localhost:5000/api/user/ with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `GET`  
 ENDPOINT: `http://localhost:5000/api/user`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
@@ -94,13 +94,13 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ## RESET USERS (Only for admin or root user)
 
-For easier testing, this endpoint was made to create delete and users and create a certain number of user with defined details. To reset the user collection, the client should make a `DELETE` request to http://localhost:5000/api/user with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+For easier testing, this endpoint was made to create delete and users and create a certain number of user with defined details. To reset the user collection, the client should make a `DELETE` request to http://localhost:5000/api/user with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `DELETE`  
 ENDPOINT: `http://localhost:5000/api/user`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
@@ -131,13 +131,13 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ## DELETE USER (Only for admin or root user)
 
-To **delete** a user, the client should make a `DELETE` request to http://localhost:5000/api/user/:userId with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To **delete** a user, the client should make a `DELETE` request to http://localhost:5000/api/user/:userId with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `DELETE`  
 ENDPOINT: `http://localhost:5000/api/user/6079587cd95aa313e5e0eba4`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
@@ -154,13 +154,13 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ## ADD NEW CATEGORY
 
-To add a new category of todos, the client should make a `POST` request to http://localhost:5000/api/category with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To add a new category of todos, the client should make a `POST` request to http://localhost:5000/api/category with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `POST`  
 ENDPOINT: `http://localhost:5000/api/category`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
+REQUEST-HEADER: `"Authorization" : "Bearer token"`  
 REQUEST-BODY:
 
 ```javascript
@@ -182,13 +182,13 @@ REQUEST-BODY:
 
 ## GET ALL CATEGORIES FOR A USER
 
-To get an array of all the categories for a user, the client should make a `GET` request to http://localhost:5000/api/category with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To get an array of all the categories for a user, the client should make a `GET` request to http://localhost:5000/api/category with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `GET`  
 ENDPOINT: `http://localhost:5000/api/category/`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
@@ -211,13 +211,13 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ## MODIFY CATEGORY
 
-To modify a category, the client should make a `PUT` request to http://localhost:5000/api/category/:categoryId with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To modify a category, the client should make a `PUT` request to http://localhost:5000/api/category/:categoryId with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `PUT`  
 ENDPOINT: `http://localhost:5000/api/category/6078dc349fc739052344f8c6`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ```json
 {
@@ -240,13 +240,13 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ## DELETE CATEGORY
 
-To **delete** a category, the client should make a `DELETE` request to http://localhost:5000/api/category/:categoryId with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To **delete** a category, the client should make a `DELETE` request to http://localhost:5000/api/category/:categoryId with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `DELETE`  
 ENDPOINT: `http://localhost:5000/api/category/6078dc349fc739052344f8c6`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
@@ -263,13 +263,13 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ## ADD NEW TODO ITEM
 
-To create a new todo item, the client should make a `POST` request to http://localhost:5000/api/todo with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To create a new todo item, the client should make a `POST` request to http://localhost:5000/api/todo with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `POST`  
 ENDPOINT: `http://localhost:5000/api/todo`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`  
+REQUEST-HEADER: `"Authorization" : "Bearer token"`  
 REQUEST-BODY:
 
 ```json
@@ -293,13 +293,13 @@ REQUEST-BODY:
 
 ## GET ALL TODO ITEMS FOR CATEGORIES
 
-To get an array of all todo items of a categories, the client should make a `GET` request to http://localhost:5000/api/todo/:categoryId with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To get an array of all todo items of a categories, the client should make a `GET` request to http://localhost:5000/api/todo/:categoryId with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `GET`  
 ENDPOINT: `http://localhost:5000/api/todo/60794051aea3f400c0354ecd`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
@@ -324,13 +324,13 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ## MODIFY TODO ITEM
 
-To modify a todo item, the client should make a `PUT` request to http://localhost:5000/api/todo/:todoId with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To modify a todo item, the client should make a `PUT` request to http://localhost:5000/api/todo/:todoId with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `PUT`  
 ENDPOINT: `http://localhost:5000/api/todo/60794ff40d70520fe434c212`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ```json
 {
@@ -355,13 +355,13 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 
 ## DELETE TODO ITEM
 
-To **delete** a todo item, the client should make a `DELETE` request to http://localhost:5000/api/todo/:todoId with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To **delete** a todo item, the client should make a `DELETE` request to http://localhost:5000/api/todo/:todoId with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `DELETE`  
 ENDPOINT: `http://localhost:5000/api/todo/60794ff40d70520fe434c212`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
@@ -376,13 +376,13 @@ REQUEST-HEADER: `"Authorisation" : "Bearer token"`
 ```
 ## DELETE ALL TODO ITEMS FOR CATEGORIES
 
-To **DELETE** all todo items of a categories, the client should make a `DELETE` request to http://localhost:5000/api/todo/many/:categoryId with the authorisation header containing the **token** generated during login/register of the user in the format `Bearer token`.
+To **DELETE** all todo items of a categories, the client should make a `DELETE` request to http://localhost:5000/api/todo/many/:categoryId with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
 ### EXAMPLE REQUEST
 
 METHOD: `DELETE`  
 ENDPOINT: `http://localhost:5000/api/todo/many/60794051aea3f400c0354ecd`  
-REQUEST-HEADER: `"Authorisation" : "Bearer token"`
+REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ### EXAMPLE RESPONSE
 
