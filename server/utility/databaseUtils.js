@@ -66,7 +66,7 @@ function addItem(Model, item) {
  */
 function updateItem(Model, itemId, newItem) {
 	const query = { _id: itemId };
-	return Model.findOneAndUpdate(query, { $set: newItem }).then(
+	return Model.findOneAndUpdate(query, { $set: newItem }, {new: true}).then(
 		(oldItem) => oldItem);
 }
 

@@ -152,7 +152,7 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 # Category Endpoints
 
-## ADD NEW CATEGORY
+## ADD NEW CATEGORY ITEM
 
 To add a new category of todos, the client should make a `POST` request to http://localhost:5000/api/category with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
@@ -180,7 +180,7 @@ REQUEST-BODY:
 }
 ```
 
-## GET ALL CATEGORIES FOR A USER
+## GET ALL CATEGORY ITEMS FOR A USER
 
 To get an array of all the categories for a user, the client should make a `GET` request to http://localhost:5000/api/category with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
@@ -209,7 +209,7 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 ];
 ```
 
-## MODIFY CATEGORY
+## MODIFY CATEGORY ITEM
 
 To modify a category, the client should make a `PUT` request to http://localhost:5000/api/category/:categoryId with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
@@ -231,14 +231,13 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 {
     "_id": "6078dc349fc739052344f8c6",
     "userId": "6078d1a072e3d9032896343a",
-    "name": "education",
+    "name": "music",
     "createdOn": "2021-04-16T00:37:08.741Z"
 }
 ```
+**Note: Newly modified item is returned**
 
-**Note: Old value is returned**
-
-## DELETE CATEGORY
+## DELETE CATEGORY ITEM
 
 To **delete** a category, the client should make a `DELETE` request to http://localhost:5000/api/category/:categoryId with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
 
@@ -343,15 +342,15 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ```json
     {
-        "done": false,
+        "done": true,
         "_id": "60794ff40d70520fe434c212",
-        "name": "clean the room",
+        "name": "clean my room",
         "categoryId": "60794051aea3f400c0354ecd",
         "createdOn": "2021-04-16T08:51:00.215Z"
     }
 ```
 
-**Note: Old value is returned**
+**Note: Newly modified item is returned**
 
 ## DELETE TODO ITEM
 
