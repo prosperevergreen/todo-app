@@ -14,8 +14,9 @@ To run the app, follow the instructions below:
 you can now view the app on a browser at http://localhost:80
 4. In the the root directory (todo-app) to stop the app use the command `docker-compose down`
 
+Default credentials of the pre-populated users can be found [HERE](./database/defaultData.js)  
+For further documentation of the client see the [Client README.md](client/README.md)  
 For further documentation of the server see the [Server README.md](server/README.md)  
-Default credentials to pre-populated users can be found [here](./database/defaultData.js)  
 
 ******
 
