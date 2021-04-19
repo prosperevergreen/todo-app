@@ -11,12 +11,18 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Divider from "@material-ui/core/Divider";
 import { useSelector, useDispatch } from "react-redux";
-import { setShowModal,  setSelectedItem } from "../../store/slices/user/userSlice";
-import { modifyCategoryItemAsync,  deleteCategoryItemAsync } from "../../store/slices/category/categorySlice";
-import { modifyTodoItemAsync,  deleteTodoItemAsync } from "../../store/slices/todo/todoSlice";
-
-
-
+import {
+	setShowModal,
+	setSelectedItem,
+} from "../../store/slices/user/userSlice";
+import {
+	modifyCategoryItemAsync,
+	deleteCategoryItemAsync,
+} from "../../store/slices/category/categorySlice";
+import {
+	modifyTodoItemAsync,
+	deleteTodoItemAsync,
+} from "../../store/slices/todo/todoSlice";
 
 const useStyles = makeStyles((theme) => ({
 	modal: {
@@ -35,73 +41,80 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-
 const PAGE = { l: "login", c: "category", t: "todo" };
 const MODE = { e: "edit", d: "delete" };
 
 export default function AppModal() {
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const classes = useStyles();
 	const [edit, setEdit] = useState("");
-    
-	const showModal = useSelector(state => state.user.showModal)
-    const mode = useSelector(state => state.user.modalMode)
-    const activeItem = useSelector(state => state.user.selectedItem)
-    const token = useSelector((state) => state.user.token);
-    const page = useSelector((state) => state.user.currPage);
 
-    useEffect(() => {
-        if(showModal){
-            setEdit(activeItem.name)            
-        }
-    }, [showModal])
+	const showModal = useSelector((state) => state.user.showModal);
+	const mode = useSelector((state) => state.user.modalMode);
+	const activeItem = useSelector((state) => state.user.selectedItem);
+	const token = useSelector((state) => state.user.token);
+	const page = useSelector((state) => state.user.currPage);
 
+	useEffect(() => {
+		if (showModal) {
+			setEdit(activeItem.name);
+		}
+	}, [showModal]);
 
-    const handleClose = () =>{
-        dispatch(setSelectedItem(null))
-        dispatch(setShowModal({ mode: "", show: false }));
-    }
+	const handleClose = () => {
+		dispatch(setSelectedItem(null));
+		dispatch(setShowModal({ mode: "", show: false }));
+	};
 
-    const handleEdit = () =>{
-        const data = {
-            name: edit,
-            date: new Date(Date.now()).toISOString()
-        }
-        const categoryId = activeItem._id
-        if(page === PAGE.c){
-            dispatch(modifyCategoryItemAsync({categoryId, token, data})).then((action)=>{
-                if(action.payload){
-                    handleClose()
-                }
-            })
-        }
-        if(page === PAGE.t){
-            const todoId = activeItem._id
-            dispatch(modifyTodoItemAsync({data, todoId, token})).then((action)=>{
-                if(action.payload){
-                    handleClose()
-                }
-            })
-        }
-    }
+	const handleEdit = (e) => {
+		e.preventDefault();
+		if (edit === "") return;
+		const data = {
+			name: edit,
+			date: new Date(Date.now()).toISOString(),
+		};
+		const categoryId = activeItem._id;
+		if (page === PAGE.c) {
+			dispatch(modifyCategoryItemAsync({ categoryId, token, data })).then(
+				(action) => {
+					if (action.payload) {
+						handleClose();
+					}
+				}
+			);
+		}
+		if (page === PAGE.t) {
+			const todoId = activeItem._id;
+			dispatch(modifyTodoItemAsync({ data, todoId, token })).then((action) => {
+				if (action.payload) {
+					handleClose();
+				}
+			});
+		}
+	};
 
-    const handleDelete = () =>{
-        const itemId = activeItem._id
-        if(page === PAGE.t){
-        dispatch(deleteCategoryItemAsync({categoryId:itemId, token})).then((action)=>{
-            if(action.payload){
-                handleClose()
-            }
-        })}
+	const handleDelete = () => {
+		const itemId = activeItem._id;
+		if (page === PAGE.c) {
+			dispatch(deleteCategoryItemAsync({ categoryId: itemId, token })).then(
+				(action) => {
+					if (action.payload) {
+						handleClose();
+					}
+				}
+			);
+		}
 
-        if(page === PAGE.t){
-            dispatch(deleteTodoItemAsync({todoId: itemId, token})).then((action)=>{
-                if(action.payload){
-                    handleClose()
-                }
-            })
-        }
-    }
+		if (page === PAGE.t) {
+			dispatch(deleteTodoItemAsync({ todoId: itemId, token })).then(
+				(action) => {
+					if (action.payload) {
+						handleClose();
+					}
+				}
+			);
+		}
+	};
 
 	const editModal = (
 		<Box style={{ outline: "0" }} width="100%">
@@ -118,34 +131,38 @@ export default function AppModal() {
 							>
 								Edit Item
 							</Typography>
-							<Box display="flex" flexDirection="column" mx="3">
-								<TextField
-									id="edit"
-									label="Outlined"
-									variant="outlined"
-									align="center"
-                                    value={edit}
-                                    onChange={(e)=>setEdit(e.target.value)}
-								/>
-								<Box display="flex" justifyContent="space-around" mt={2}>
-									<Button
-										className={classes.button}
-										variant="contained"
-										color="primary"
-                                        onClick={handleEdit}
-									>
-										Confirm
-									</Button>
-									<Button
-										className={classes.button}
-										variant="contained"
-										color="secondary"
-										onClick={handleClose}
-									>
-										Cancel
-									</Button>
+							<form noValidate autoComplete="off" onSubmit={handleEdit}>
+								<Box display="flex" flexDirection="column" mx="3">
+									<TextField
+										id="edit"
+										label={edit.length === 0? "Input required" : "Edit item"}
+										variant="outlined"
+										align="center"
+										error={edit.length === 0}
+										value={edit}
+										onChange={(e) => setEdit(e.target.value)}
+									/>
+									<Box display="flex" justifyContent="space-around" mt={2}>
+										<Button
+											className={classes.button}
+											variant="contained"
+											color="secondary"
+											onClick={handleClose}
+										>
+											Cancel
+										</Button>
+										<Button
+											className={classes.button}
+											variant="contained"
+											color="primary"
+											type="submit"
+											disabled={edit.length === 0}
+										>
+											Confirm
+										</Button>
+									</Box>
 								</Box>
-							</Box>
+							</form>
 						</Box>
 					</Paper>
 				</Grid>
@@ -175,18 +192,18 @@ export default function AppModal() {
 									<Button
 										className={classes.button}
 										variant="contained"
-										color="primary"
-                                        onClick={handleDelete}
-									>
-										Confirm
-									</Button>
-									<Button
-										className={classes.button}
-										variant="contained"
 										color="secondary"
 										onClick={handleClose}
 									>
 										Cancel
+									</Button>
+									<Button
+										className={classes.button}
+										variant="contained"
+										color="primary"
+										onClick={handleDelete}
+									>
+										Confirm
 									</Button>
 								</Box>
 							</Box>

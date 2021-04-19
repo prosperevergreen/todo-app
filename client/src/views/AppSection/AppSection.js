@@ -18,9 +18,7 @@ import {
 	getAllCategoryItemsAsync,
 	addCategoryItemAsync,
 } from "../../store/slices/category/categorySlice";
-import {
-	addTodoItemAsync,
-} from "../../store/slices/todo/todoSlice";
+import { addTodoItemAsync } from "../../store/slices/todo/todoSlice";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -47,7 +45,8 @@ const AppSection = ({ page, sectionData }) => {
 		data.name.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
-	const handleAddItem = () => {
+	const handleAddItem = (e) => {
+		e.preventDefault();
 		if (addTerm === "") return;
 
 		if (page === PAGE.c) {
@@ -59,7 +58,7 @@ const AppSection = ({ page, sectionData }) => {
 			});
 		}
 		if (page === PAGE.t) {
-			const categoryId = currentCategory._id
+			const categoryId = currentCategory._id;
 			const data = { name: addTerm, categoryId };
 			dispatch(addTodoItemAsync({ token, data })).then((action) => {
 				if (action.payload) {
@@ -88,7 +87,7 @@ const AppSection = ({ page, sectionData }) => {
 						{page === PAGE.t && (
 							<IconButton
 								onClick={() => {
-									dispatch(setCurrentCategory(null))
+									dispatch(setCurrentCategory(null));
 									dispatch(setPage(PAGE.c));
 								}}
 								aria-label="more"
@@ -102,6 +101,7 @@ const AppSection = ({ page, sectionData }) => {
 				{/* <Box flexGrow="1" pt={1} overflow="scroll" > */}
 				<Box px={1} my={2}>
 					<TextField
+						autoComplete="off"
 						fullWidth
 						id="search"
 						label="Search..."
@@ -126,35 +126,39 @@ const AppSection = ({ page, sectionData }) => {
 				>
 					{searchResult.map((value) => {
 						return page === PAGE.t ? (
-							<TodoItem
-								key={value._id}
-								todo={value}
-							/>
+							<TodoItem key={value._id} todo={value} />
 						) : (
 							<CategoryItem key={value._id} category={value} />
 						);
 					})}
 				</Box>
 				{/* </Box> */}
-				<Box display="flex" mt="auto">
-					<Box flexGrow="1" bgcolor="white" borderRadius={4}>
-						<TextField
-							fullWidth
-							id="add"
-							label={`Add ${page}`}
-							variant="outlined"
-							value={addTerm}
-							onChange={(e) => {
-								setAddTerm(e.target.value);
-							}}
-						/>
+				<form noValidate autoComplete="off" onSubmit={handleAddItem}>
+					<Box display="flex" mt="auto">
+						<Box flexGrow="1" bgcolor="white" borderRadius={4}>
+							<TextField
+								fullWidth
+								id="add"
+								label={`Add ${page}`}
+								variant="outlined"
+								value={addTerm}
+								onChange={(e) => {
+									setAddTerm(e.target.value);
+								}}
+							/>
+						</Box>
+						<Box ml={1}>
+							<Fab
+								color="primary"
+								disabled={addTerm.length === 0}
+								aria-label="add"
+								type="submit"
+							>
+								<AddIcon />
+							</Fab>
+						</Box>
 					</Box>
-					<Box ml={1}>
-						<Fab color="primary" aria-label="add" onClick={handleAddItem}>
-							<AddIcon />
-						</Fab>
-					</Box>
-				</Box>
+				</form>
 			</Box>
 		</Paper>
 	);
