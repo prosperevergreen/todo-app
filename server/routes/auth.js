@@ -38,7 +38,6 @@ router.get("/", async function (req, res) {
 
 /* REGISTER */
 router.post("/", async function (req, res) {
-
 	const {email, password, token } = res.locals.credentials;
 
 	// Check password length

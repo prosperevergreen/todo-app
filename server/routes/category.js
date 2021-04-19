@@ -3,6 +3,7 @@ const router = express.Router();
 
 const dbUtils = require("../utility/databaseUtils");
 const Category = require("../models/category.js");
+const Todo = require("../models/todo.js")
 
 
 /* GET category by id. */
@@ -66,6 +67,7 @@ router.put("/:categoryId", async function (req, res) {
 router.delete("/:categoryId", async function (req, res) {
 	const categoryId = req.params.categoryId;
 	try {
+		await dbUtils.deleteItemByField(Todo,{categoryId})
 		const category = await dbUtils.deleteItemById(Category, categoryId);
 		res.json(category);
 	} catch (error) {
