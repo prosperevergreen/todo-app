@@ -1,11 +1,13 @@
 # Todo App
 
-A simple todo app made with **mongo + express.js + react.js  + node.js (MERN) Stack**. The app runs on `http://localhost:80`.  
+A Todo app developed with **[Mongodb](https://www.mongodb.com/), [Express](https://expressjs.com/), [React](https://reactjs.org/)  and [Node](https://nodejs.org/en/) (MERN) Stack**. The app runs on `http://localhost:80`.  
 
 *****
+
+**Note: Before you folow the setup instructions, be sure you have [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed and running in your environment.**  
  
 ## SETUP INSTRUCTION
-To start the appm follow the following instruction 
+To run the app, follow the instructions below:
 1. Clone the repository `git clone https://gitlab.com/prosperevergreen/todo-app`
 2. Move into the folder with the command `cd todo-app`
 3. In the the root directory (todo-app), start the app with the command `docker-compose up -d` 
