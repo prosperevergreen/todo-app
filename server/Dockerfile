@@ -13,7 +13,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # dev mode
-RUN npm install -g nodemon 
+# RUN npm install -g nodemon 
 
 RUN npm install
 # If you are building your code for production
