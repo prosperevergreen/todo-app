@@ -51,7 +51,7 @@ export const userSlice = createSlice({
 	initialState,
 	// The `reducers` field lets us define reducers and generate associated actions
 	reducers: {
-		logoutUser: (state) => {
+		resetUserData: (state) => {
 			state.status = "idle";
 			state.token = "";
 			state.user = null;
@@ -111,7 +111,7 @@ export const userSlice = createSlice({
 });
 
 export const {
-	logoutUser,
+	resetUserData,
 	setPage,
 	setSelectedItem,
 	setUserCred,

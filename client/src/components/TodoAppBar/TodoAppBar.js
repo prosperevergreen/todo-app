@@ -8,10 +8,17 @@ import Box from "@material-ui/core/Box";
 import logo from "../../assets/svg/logo.svg";
 
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../../store/slices/user/userSlice";
+import { resetUserData } from "../../store/slices/user/userSlice";
+import { resetCategoryData } from "../../store/slices/category/categorySlice";
+import { resetTodoData } from "../../store/slices/todo/todoSlice";
 
 const TodoAppBar = () => {
 	const dispatch = useDispatch();
+	const handleLogout = () =>{
+		dispatch(resetTodoData())
+		dispatch(resetCategoryData())
+		dispatch(resetUserData()) 
+	}
 	return (
 		<Box>
 			<AppBar elevation={2} position="static" color="default">
@@ -23,7 +30,7 @@ const TodoAppBar = () => {
 						<Button
 							size="large"
 							color="inherit"
-							onClick={() => dispatch(logoutUser())}
+							onClick={handleLogout}
 						>
 							Logout
 						</Button>

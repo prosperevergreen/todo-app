@@ -57,6 +57,10 @@ export const todoSlice = createSlice({
 	initialState,
 	// The `reducers` field lets us define reducers and generate associated actions
 	reducers: {
+		resetTodoData:(state)=>{
+			state.status= "idle"
+			state.todoItems= []
+		},
 		addItemToTodoItems: (state, action) => {
 			const item = action.payload;
 			state.todoItems.push(item);
@@ -128,6 +132,6 @@ export const todoSlice = createSlice({
 	},
 });
 
-export const { addItemToTodoItems, modifyItemInTodoItems, deleteItemFromTodoItems } = todoSlice.actions;
+export const { addItemToTodoItems, modifyItemInTodoItems, deleteItemFromTodoItems, resetTodoData } = todoSlice.actions;
 
 export default todoSlice.reducer;
