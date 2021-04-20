@@ -40,7 +40,7 @@ function App() {
 	const todoItems = useSelector((state) => state.todo.todoItems);
 
 	// Use Effect is used to update the changes to the generic array that supplies the data
-	// It is import that both the data change and page navigaion is monitored
+	// It is important that both the data change and page navigaion is monitored
 	useEffect(() => {
 		if (page === PAGE.c) {
 			setDisplayData(categoryItems);
