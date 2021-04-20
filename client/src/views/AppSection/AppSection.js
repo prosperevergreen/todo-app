@@ -145,6 +145,7 @@ const AppSection = ({ page, sectionData }) => {
 								onChange={(e) => {
 									setAddTerm(e.target.value);
 								}}
+								labelWidth={85}
 							/>
 						</Box>
 						<Box ml={1}>

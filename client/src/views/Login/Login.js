@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: "auto",
 		marginRight: "auto",
 		paddingTop: "12",
-		paddingBottom: "12"
+		paddingBottom: "12",
 	},
 	loginForm: {
 		paddingLeft: "128px",
@@ -81,7 +81,7 @@ const Login = () => {
 	}, []);
 
 	const getPersistantData = (key) => {
-		return JSON.parse(localStorage.getItem(key));
+		return JSON.parse(sessionStorage.getItem(key));
 	};
 
 	const handleLoginRes = (action, cred) => {
@@ -144,12 +144,12 @@ const Login = () => {
 									<img src={logo} alt="app logo" width="100%" loading="lazy" />
 								</Box>
 								<Box my={15}>
-									<Box textAlign="center" fontSize={24} >
+									<Box textAlign="center" fontSize={24}>
 										{inLogin ? "Sign-in!" : "Sign-up!"}
 									</Box>
 									<Box mt={5}>
 										<form noValidate autoComplete="off" onSubmit={handleSubmit}>
-											<Box mb={2} >
+											<Box mb={2}>
 												<TextField
 													id="email"
 													label="EMAIL"
@@ -196,6 +196,7 @@ const Login = () => {
 														labelWidth={85}
 														fullWidth
 													/>
+													
 													{errorMsg !== "" && (
 														<FormHelperText id="component-error-text">
 															<Box

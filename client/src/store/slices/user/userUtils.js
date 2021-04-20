@@ -21,14 +21,14 @@ export const loginUser = (credentials) =>{
 }
 
 export const savePersistantData = (key, data)=>{
-    localStorage.setItem(key, JSON.stringify(data));
+    sessionStorage.setItem(key, JSON.stringify(data));
 }
 
 export const getPersistantData = (key)=>{
-    return JSON.parse(localStorage.getItem(key));
+    return JSON.parse(sessionStorage.getItem(key));
 }
 
 export const clearPersistantData = ()=>{
-    return localStorage.clear();
+    return sessionStorage.clear();
 }
 
