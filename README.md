@@ -18,7 +18,7 @@ For further documentation of the client see the [Client README.md](client/README
 For further documentation of the server see the [Server README.md](server/README.md)  
 
 ******
-
+There is also a [DEMO VIDEO](./documentation/todo_app.mp4)
 ## iOS SCREENSHOT
 
 <div ><img width="300px" src="./documentation/iOS.png"></div>  
