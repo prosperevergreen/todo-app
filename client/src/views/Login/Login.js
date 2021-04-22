@@ -112,6 +112,7 @@ const Login = () => {
 
 		if (password.length < 4) {
 			setErrorMsg(ERROR_MSG.tooShort);
+			return;
 		}
 
 		const userCred = { email, password };
