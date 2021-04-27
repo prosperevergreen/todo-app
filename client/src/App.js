@@ -25,16 +25,13 @@ const theme = createMuiTheme({
 	},
 });
 
-
-
 function App() {
-
 	// As the list page is reused, however, the data changes, so an array told
 	// The data to be supplied to the list it provided
 	const [displayData, setDisplayData] = useState([]);
 	// Tracking the current page is used to know which data to supply
 	const page = useSelector((state) => state.user.currPage);
-	// Tracking the category items is used to populate the page when the 
+	// Tracking the category items is used to populate the page when the
 	// page is active same with the todo items
 	const categoryItems = useSelector((state) => state.category.categoryItems);
 	const todoItems = useSelector((state) => state.todo.todoItems);
@@ -49,6 +46,7 @@ function App() {
 			setDisplayData(todoItems);
 		}
 	}, [page, categoryItems, todoItems]);
+
 
 	// The app layout rendes the app section or the login screen based on
 	// the state of the app (user is logged in or not)

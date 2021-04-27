@@ -10,9 +10,19 @@ const authWithToken = require("../utility/authUtils").authWithToken
 const authWithBasic = require("../utility/authUtils").authWithBasic
 
 
-router.use("/auth",authWithBasic, authRouter);
-router.use("/todo",authWithToken, todoRouter);
-router.use("/user",authWithToken, userRouter);
-router.use("/category",authWithToken, categoryRouter);
+router.use("/auth/",authWithBasic, authRouter);
+router.use("/api/",authWithToken);
+router.use("/api/todo/", todoRouter);
+router.use("/api/user/", userRouter);
+router.use("/api/category/", categoryRouter);
+
+
+// Bad End point
+const badRoute = function (req, res) {
+	res.status(404).json({ badRequest: "The route does not exit" });
+};
+
+router.use("*", badRoute);
+
 
 module.exports = router;

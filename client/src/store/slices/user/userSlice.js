@@ -28,21 +28,34 @@ const initialState = {
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
+
+/**
+ * A thunk action function that handles login async request
+ */
 export const registerUserAsync = createAsyncThunk(
 	"user/registerUser",
-	async (userData) => {
-		const data = await registerUser(userData);
-		// The value we return becomes the `fulfilled` action payload
-		return data;
+	async (userData, { rejectWithValue }) => {
+		try{
+			const response = await registerUser(userData);
+			return JSON.parse(JSON.stringify(response));
+		}catch(err){
+			return rejectWithValue(JSON.parse(JSON.stringify(err.response)));
+		}
 	}
 );
 
+/**
+ * A thunk action function that handles async register request
+ */
 export const loginUserAsync = createAsyncThunk(
 	"user/loginUser",
-	async (userData) => {
-		const data = await loginUser(userData);
-		// The value we return becomes the `fulfilled` action payload
-		return data;
+	async (userData, { rejectWithValue }) => {
+		try{
+			const response = await loginUser(userData);
+			return JSON.parse(JSON.stringify(response));
+		}catch(err){
+			return rejectWithValue(JSON.parse(JSON.stringify(err.response)));
+		}
 	}
 );
 
@@ -104,7 +117,7 @@ export const userSlice = createSlice({
 			.addCase(loginUserAsync.fulfilled, (state, action) => {
 				state.status = "idle";
 			})
-			.addCase(loginUserAsync.rejected, (state) => {
+			.addCase(loginUserAsync.rejected, (state, action) => {
 				state.status = "error";
 			});
 	},

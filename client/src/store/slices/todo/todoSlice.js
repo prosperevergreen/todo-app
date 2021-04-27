@@ -4,6 +4,7 @@ import {
 	getAllTodoItems,
 	modifyTodoItem,
 	deleteTodoItem,
+	sortItems
 } from "./todoUtils";
 
 const initialState = {
@@ -99,7 +100,7 @@ export const todoSlice = createSlice({
 			.addCase(getAllTodoItemsAsync.fulfilled, (state, action) => {
 				const todoData = JSON.parse(JSON.stringify(action.payload));
 				state.status = "idle";
-				state.todoItems = todoData;
+				state.todoItems = todoData.sort(sortItems);
 			})
 			.addCase(getAllTodoItemsAsync.rejected, (state) => {
 				state.status = "error";

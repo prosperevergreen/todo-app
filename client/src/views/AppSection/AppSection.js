@@ -26,40 +26,63 @@ const PAGE_TITLE = { category: "todo category", todo: "todo item" };
 const PAGE = { l: "login", c: "category", t: "todo" };
 
 const AppSection = ({ page, sectionData }) => {
-	const [searchTerm, setSearchTerm] = useState("");
-	const [addTerm, setAddTerm] = useState("");
-
-	const screenIsSM = useMediaQuery("(max-width:600px)");
-
 	const dispatch = useDispatch();
+
+	// Keep track of the search field input
+	const [searchTerm, setSearchTerm] = useState("");
+	// Keep track of add field input
+	const [addTerm, setAddTerm] = useState("");
+	// Keep track of the screen size
+	const screenIsSM = useMediaQuery("(max-width:600px)");
+	// Get user token from redux store
 	const token = useSelector((state) => state.user.token);
+	// Get current category used to keep track of the catefory when moved
 	const currentCategory = useSelector((state) => state.user.currentCategory);
 
+	// Load fetch category items on page load
 	useEffect(() => {
 		if (page === PAGE.c) {
 			dispatch(getAllCategoryItemsAsync(token));
 		}
 	}, []);
 
+	/**
+	 * A function that filters the result based on the searchTerm
+	 */
 	const searchResult = sectionData.filter((data) =>
 		data.name.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
+	/**
+	 * A function that handles the submit event of adding an item
+	 * 
+	 * @param {object} e - submit event object 
+	 * @returns 
+	 */
 	const handleAddItem = (e) => {
 		e.preventDefault();
+
+		// If the input field is empty do nothing
 		if (addTerm === "") return;
 
+		// If on category section 
 		if (page === PAGE.c) {
+			// Form request data for modifying server data
 			const data = { name: addTerm };
+			// post update to server
 			dispatch(addCategoryItemAsync({ token, data })).then((action) => {
 				if (action.payload) {
 					setAddTerm("");
 				}
 			});
+			return;
 		}
+
+		// If on todo section
 		if (page === PAGE.t) {
-			const categoryId = currentCategory._id;
-			const data = { name: addTerm, categoryId };
+			// Form request data for modifying server data
+			const data = { name: addTerm, categoryId: currentCategory._id };
+			// post update to server
 			dispatch(addTodoItemAsync({ token, data })).then((action) => {
 				if (action.payload) {
 					setAddTerm("");
@@ -145,7 +168,6 @@ const AppSection = ({ page, sectionData }) => {
 								onChange={(e) => {
 									setAddTerm(e.target.value);
 								}}
-								labelWidth={85}
 							/>
 						</Box>
 						<Box ml={1}>

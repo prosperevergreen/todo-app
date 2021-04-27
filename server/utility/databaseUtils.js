@@ -41,7 +41,6 @@ function deleteItemById(Model, itemId) {
  * @returns { Promise<object> } 
  */
  function deleteItemByField(Model, field) {
-	 if(!field) return [];
 	return Model.deleteMany(field).then((item) => item);
 }
 
@@ -64,10 +63,9 @@ function addItem(Model, item) {
  * @param {object} newItem Modified item
  * @returns { Promise<object> } 
  */
-function updateItem(Model, itemId, newItem) {
-	const query = { _id: itemId };
-	return Model.findOneAndUpdate(query, { $set: newItem }, {new: true}).then(
-		(oldItem) => oldItem);
+ function updateItemById(Model, itemId, newItem) {
+	return Model.findByIdAndUpdate(itemId, newItem, {new: true}).then(
+		(item) => item);
 }
 
 /**
@@ -85,7 +83,7 @@ module.exports = {
 	getItemById,
 	deleteItemById,
 	addItem,
-	updateItem,
+	updateItemById,
 	resetItems,
     getItemByField,
 	deleteItemByField

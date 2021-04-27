@@ -17,6 +17,11 @@ const initialState = {
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
+
+
+/**
+ * A function that handles Async request for adding an item
+ */
 export const addCategoryItemAsync = createAsyncThunk(
 	"category/addCategoryItem",
 	async (data) => {
@@ -26,6 +31,9 @@ export const addCategoryItemAsync = createAsyncThunk(
 	}
 );
 
+/**
+ * A reducer function that handles Async request for fetching all category items
+ */
 export const getAllCategoryItemsAsync = createAsyncThunk(
 	"category/getAllCategoryItems",
 	async (data) => {
@@ -35,6 +43,9 @@ export const getAllCategoryItemsAsync = createAsyncThunk(
 	}
 );
 
+/**
+ * A reducer function that handles Async request for adding a category item
+ */
 export const modifyCategoryItemAsync = createAsyncThunk(
 	"category/modifyCategoryItem",
 	async (data) => {
@@ -44,6 +55,9 @@ export const modifyCategoryItemAsync = createAsyncThunk(
 	}
 );
 
+/**
+ * A reducer function that handles Async request for deleting a category item
+ */
 export const deleteCategoryItemAsync = createAsyncThunk(
 	"category/deleteCategoryItem",
 	async (data) => {

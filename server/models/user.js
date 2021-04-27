@@ -48,10 +48,16 @@ const userSchema = new Schema({
 	},
 	password: {
 		type: String,
-		minlength: 5,
+		minlength: 4,
 		// Set function that hashes the password
 		set: hashPwd,
 		required: true,
+	},
+	role:{
+		type: String,
+		enum:["admin","user"],
+		required: true,
+		default: "user"
 	},
 	createdOn: {
 		type: Date,

@@ -14,9 +14,16 @@ import { resetTodoData } from "../../store/slices/todo/todoSlice";
 
 const TodoAppBar = () => {
 	const dispatch = useDispatch();
+
+	/**
+	 * A function that handles logout request
+	 */
 	const handleLogout = () =>{
+		// Reset todo data to default
 		dispatch(resetTodoData())
+		// Reset category items to default
 		dispatch(resetCategoryData())
+		// Reset user data to default
 		dispatch(resetUserData()) 
 	}
 	return (

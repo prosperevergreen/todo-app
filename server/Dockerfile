@@ -5,6 +5,8 @@ FROM node:12-alpine
 # Create app directory
 WORKDIR /usr/src/app
 
+ENV ACCESS_TOKEN_SECRET=8658903a27c74956aaef36c8df78034c7cb6750c239e9f972a8c3ce9fdcab36db552a06b4f82bfce615818edba9c3e6602818ecfdc35a5fda122e2bc2644d8b9
+
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)

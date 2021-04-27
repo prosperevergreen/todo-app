@@ -50,81 +50,141 @@ const TYPE = { l: "LOGIN", r: "REGISTER" };
 const ERROR_MSG = {
 	emptyField: "EMAIL AND PASSWORD IS REQUIRED",
 	tooShort: "PASSWORD MUST CONTAIN ALEAST 4 CHARACTERS",
-	badFormat: "EMAIL MUST BE OF xxx@yyy.zzz FORMAT",
+	badFormat: "EMAIL MUST BE OF x@y.z FORMAT",
 	incorrectCred: "WRONG EMAIL OR PASSWORD",
 	duplicateCred: "EMAIL ALREADY EXISTS",
+	networkError: "Network or server error",
 };
 
 const Login = () => {
+	// Keep track of email input field
 	const [email, setEmail] = useState("");
+	// Keep track of password input field
 	const [password, setPassword] = useState("");
+	// Bool to show or hide password field
 	const [showPassword, setShowPassword] = useState(false);
+	// Error message to be displayed to user
 	const [errorMsg, setErrorMsg] = useState("");
+	// login/register state
 	const [inLogin, setInLogin] = useState(true);
+	// Screen size
 	const screenIsSM = useMediaQuery("(max-width:1000px)");
+
 	const classes = useStyles(screenIsSM);
 	const dispatch = useDispatch();
 
+	/**
+	 * A function that validates the email format
+	 *
+	 * @param {string} email - email address to be tested
+	 * @returns {boolean}
+	 */
 	const emailValidator = (email) => {
 		return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
 			email
 		);
 	};
 
+	// on page load, Check if a user was logged in
 	useEffect(() => {
+		// Try accessing the persistant memory
 		const userCred = getPersistantData("cred");
+		// check if user exists
 		if (userCred !== null) {
-			dispatch(loginUserAsync(userCred)).then((action) =>
-				handleLoginRes(action, userCred)
-			);
+			setEmail(userCred.email);
+			setPassword(userCred.password);
+			// Try login user in user
+			dispatch(loginUserAsync(userCred)).then(handleLoginRes);
 		}
 	}, []);
 
+	/**
+	 * A function used to reteive data from session storage
+	 *
+	 * @param {string} key - key of the memory to be accessed
+	 * @returns {object}
+	 */
 	const getPersistantData = (key) => {
 		return JSON.parse(sessionStorage.getItem(key));
 	};
 
-	const handleLoginRes = (action, cred) => {
-		const resData = action.payload;
-		if (!resData) {
-			setErrorMsg(inLogin ? ERROR_MSG.incorrectCred : ERROR_MSG.duplicateCred);
+	/**
+	 * A function that completes login/register user action
+	 *
+	 * @param {object} payload - response data
+	 * @param {object} cred - user credentials {email, password}
+	 * @returns
+	 */
+	const handleLoginRes = (action) => {
+		const payload = action.payload;
+		// If server doesn't respond or no network
+		if (!payload) return setErrorMsg(ERROR_MSG.networkError);
+
+		// Get response status
+		const status = payload.status;
+
+		// Get response data
+		const resData = payload.data;
+
+		// Check if response is not ok
+		if (status !== 200) {
+
+			// Get server error message
+			const errMsg = resData.error;
+
+			// Display error message
+			setErrorMsg(errMsg || ERROR_MSG.networkError);
 			return;
 		}
-		dispatch(setUserCred({ cred, ...resData }));
+
+		// Register & login user to system
+		dispatch(setUserCred({ cred: { email, password }, ...resData }));
+
+		// Reset input fields
 		setEmail("");
 		setPassword("");
 	};
 
+	/**
+	 * A function that handles the subission of user data for login/register
+	 *
+	 * @param {object} e - submit event object
+	 * @returns
+	 */
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		setErrorMsg("");
 
+		// Check if password or email is empty
 		if (email === "" || password === "") {
 			setErrorMsg(ERROR_MSG.emptyField);
 			return;
 		}
 
+		// Check if email is valid
 		if (!emailValidator(email)) {
 			setErrorMsg(ERROR_MSG.badFormat);
 			return;
 		}
 
+		// Check if password is of proper length
 		if (password.length < 4) {
 			setErrorMsg(ERROR_MSG.tooShort);
 			return;
 		}
 
+		// Create user data
 		const userCred = { email, password };
 
+
+		// Check page state
 		if (inLogin) {
-			dispatch(loginUserAsync(userCred)).then((action) =>
-				handleLoginRes(action, userCred)
-			);
+			// Try to go user in
+			dispatch(loginUserAsync(userCred)).then(handleLoginRes);
 		} else {
-			dispatch(registerUserAsync(userCred)).then((action) =>
-				handleLoginRes(action, userCred)
-			);
+			// Try register user
+			dispatch(registerUserAsync(userCred)).then(handleLoginRes);
 		}
 	};
 
@@ -197,7 +257,7 @@ const Login = () => {
 														labelWidth={85}
 														fullWidth
 													/>
-													
+
 													{errorMsg !== "" && (
 														<FormHelperText id="component-error-text">
 															<Box
@@ -205,6 +265,7 @@ const Login = () => {
 																display="block"
 																component="span"
 																fontSize={12}
+																style={{ textTransform: "uppercase" }}
 															>
 																{errorMsg}
 															</Box>

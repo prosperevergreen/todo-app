@@ -23,39 +23,61 @@ const MODE = { e: "edit", d: "delete" };
 
 
 const TodoItem = ({ todo }) => {
-	const token = useSelector((state) => state.user.token);
-	
+	const dispatch = useDispatch();
+
+	// To temprariliy stores the HTML DOM Element over which the edit/delete menu will appear
 	const [anchorEl, setAnchorEl] = useState(null);
+	// Ref for accessing the DOM
 	const moreButtonRef = useRef(null);
-	
-	const dispatch = useDispatch()
-
-
+	// Get the token from the store
+	const token = useSelector((state) => state.user.token);
+	// Set the anchor (or element) over which the menu should appear
 	const handleClick = () => {
 		setAnchorEl(moreButtonRef.current);
 	};
 
+	/**
+	 * Remove the menu from the element
+	 */
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
 
+	/**
+	 * A function that handle the menu edit button clicked
+	 */
 	const handleEdit = () => {
+		// Set's the selected item
 		dispatch(setSelectedItem(todo));
+		// Activates the display of the edit modal
 		dispatch(setShowModal({ mode: MODE.e, show: true }));
+		// Close/remove the menu
 		handleClose();
 	};
 
+	/**
+	 * A function that handle the menu delete button clicked
+	 */
 	const handleDelete = () => {
+		// Set's the selected item
 		dispatch(setSelectedItem(todo));
+		// Activates the display of the delete modal
 		dispatch(setShowModal({ mode: MODE.d, show: true }));
+		// Close/remove the menu
 		handleClose();
 	};
 
+	/**
+	 * A function that handles the checking of a todo item
+	 */
 	const handleCheck = () =>{
+		// Get item id
 		const todoId = todo._id;
+		// Form request data body
 		const data = {
 			done: !todo.done
 		}
+		// Send request to update data
 		dispatch(modifyTodoItemAsync({data, todoId, token}))
 	}
 

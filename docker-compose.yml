@@ -29,7 +29,6 @@ services:
     environment:
       WAIT_HOSTS: mongodb:27017
       WAIT_AFTER_HOSTS: 2
-      ACCESS_TOKEN_SECRET: 8658903a27c74956aaef36c8df78034c7cb6750c239e9f972a8c3ce9fdcab36db552a06b4f82bfce615818edba9c3e6602818ecfdc35a5fda122e2bc2644d8b9
     command: sh -c "/wait && npm run start" # npm run dev" # Dev Mode
 
   todo_client:

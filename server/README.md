@@ -22,13 +22,14 @@ REQUEST-HEADER: `"Authorization" : "Basic email:password"`
 
 ```json
 {
-    "user": {
-        "_id": "6078d1a072e3d9032896343a",
-        "email": "user@email.com",
-        "createdOn": "2021-04-15T23:52:00.891Z",
-        "__v": 0
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImlhdCI6MTYxODUzMDcyMH0.oolsilUBXSpMAQLAu-t0fK-ahhWWN-d3LID7-yJHljA"
+	"user": {
+		"_id": "6078d1a072e3d9032896343a",
+		"email": "user@email.com",
+		"role": "user",
+		"createdOn": "2021-04-15T23:52:00.891Z",
+		"__v": 0
+	},
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImlhdCI6MTYxODUzMDcyMH0.oolsilUBXSpMAQLAu-t0fK-ahhWWN-d3LID7-yJHljA"
 }
 ```
 
@@ -47,13 +48,14 @@ REQUEST-HEADER: `"Authorization" : "Basic email:password"`
 
 ```json
 {
-    "user": {
-        "_id": "6078d1a072e3d9032896343a",
-        "email": "user@email.come",
-        "createdOn": "2021-04-15T23:52:00.891Z",
-        "__v": 0
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImlhdCI6MTYxODUzMDg5MX0.SCE2g3M7UXbHo3V--GIqQP0C6YQlQuXZnhSdzNMhxaM"
+	"user": {
+		"_id": "6078d1a072e3d9032896343a",
+		"email": "user@email.com",
+		"role": "user",
+		"createdOn": "2021-04-15T23:52:00.891Z",
+		"__v": 0
+	},
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImlhdCI6MTYxODUzMDg5MX0.SCE2g3M7UXbHo3V--GIqQP0C6YQlQuXZnhSdzNMhxaM"
 }
 ```
 
@@ -71,24 +73,27 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ```json
 [
-    {
-        "_id": "6078f418582ec803162d61f7",
-        "email": "test@email.com",
-        "createdOn": "2021-04-16T02:19:04.649Z",
-        "__v": 0
-    },
-    {
-        "_id": "6078f418582ec803162d61f8",
-        "email": "john@email.com",
-        "createdOn": "2021-04-16T02:19:04.718Z",
-        "__v": 0
-    },
-    {
-        "_id": "6079587cd95aa313e5e0eba4",
-        "email": "root@email.com",
-        "createdOn": "2021-04-16T09:27:25.008Z",
-        "__v": 0
-    }
+	{
+		"_id": "6078f418582ec803162d61f7",
+		"email": "test@email.com",
+		"role": "user",
+		"createdOn": "2021-04-16T02:19:04.649Z",
+		"__v": 0
+	},
+	{
+		"_id": "6078f418582ec803162d61f8",
+		"email": "john@email.com",
+		"role": "user",
+		"createdOn": "2021-04-16T02:19:04.718Z",
+		"__v": 0
+	},
+	{
+		"_id": "6079587cd95aa313e5e0eba4",
+		"email": "root@email.com",
+		"role": "admin",
+		"createdOn": "2021-04-16T09:27:25.008Z",
+		"__v": 0
+	}
 ]
 ```
 
@@ -109,18 +114,21 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 	{
 		_id: "6078f418582ec803162d61f7",
 		email: "test@email.com",
+		role: "user",
 		createdOn: "2021-04-16T02:19:04.649Z",
 		__v: 0,
 	},
 	{
 		_id: "6078f418582ec803162d61f8",
 		email: "john@email.com",
+		role: "user",
 		createdOn: "2021-04-16T02:19:04.718Z",
 		__v: 0,
 	},
 	{
 		_id: "6079587cd95aa313e5e0eba4",
 		email: "root@email.com",
+		role: "admin",
 		createdOn: "2021-04-16T09:27:25.008Z",
 		__v: 0,
 	},
@@ -143,10 +151,11 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ```json
 {
-    "_id": "6079587cd95aa313e5e0eba4",
-    "email": "root@email.com",
-    "createdOn": "2021-04-16T09:27:25.008Z",
-    "__v": 0
+	"_id": "6079587cd95aa313e5e0eba4",
+	"email": "root@email.com",
+	"role": "admin",
+	"createdOn": "2021-04-16T09:27:25.008Z",
+	"__v": 0
 }
 ```
 
@@ -173,10 +182,10 @@ REQUEST-BODY:
 
 ```json
 {
-    "_id": "6078dc349fc739052344f8c6",
-    "userId": "6078d1a072e3d9032896343a",
-    "name": "education",
-    "createdOn": "2021-04-16T00:37:08.741Z"
+	"_id": "6078dc349fc739052344f8c6",
+	"userId": "6078d1a072e3d9032896343a",
+	"name": "education",
+	"createdOn": "2021-04-16T00:37:08.741Z"
 }
 ```
 
@@ -229,12 +238,13 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ```json
 {
-    "_id": "6078dc349fc739052344f8c6",
-    "userId": "6078d1a072e3d9032896343a",
-    "name": "music",
-    "createdOn": "2021-04-16T00:37:08.741Z"
+	"_id": "6078dc349fc739052344f8c6",
+	"userId": "6078d1a072e3d9032896343a",
+	"name": "music",
+	"createdOn": "2021-04-16T00:37:08.741Z"
 }
 ```
+
 **Note: Newly modified item is returned**
 
 ## DELETE CATEGORY ITEM
@@ -251,10 +261,10 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ```json
 {
-    "_id": "6078dc349fc739052344f8c6",
-    "userId": "6078d1a072e3d9032896343a",
-    "name": "music",
-    "createdOn": "2021-04-16T00:37:08.741Z"
+	"_id": "6078dc349fc739052344f8c6",
+	"userId": "6078d1a072e3d9032896343a",
+	"name": "music",
+	"createdOn": "2021-04-16T00:37:08.741Z"
 }
 ```
 
@@ -274,7 +284,7 @@ REQUEST-BODY:
 ```json
 {
 	"name": "clean the room",
-    "categoryId": "60794051aea3f400c0354ecd"
+	"categoryId": "60794051aea3f400c0354ecd"
 }
 ```
 
@@ -282,11 +292,11 @@ REQUEST-BODY:
 
 ```json
 {
-    "done": false,
-    "_id": "60794ff40d70520fe434c212",
-    "name": "clean the room",
-    "categoryId": "60794051aea3f400c0354ecd",
-    "createdOn": "2021-04-16T08:51:00.215Z"
+	"done": false,
+	"_id": "60794ff40d70520fe434c212",
+	"name": "clean the room",
+	"categoryId": "60794051aea3f400c0354ecd",
+	"createdOn": "2021-04-16T08:51:00.215Z"
 }
 ```
 
@@ -341,13 +351,13 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 ### EXAMPLE RESPONSE
 
 ```json
-    {
-        "done": true,
-        "_id": "60794ff40d70520fe434c212",
-        "name": "clean my room",
-        "categoryId": "60794051aea3f400c0354ecd",
-        "createdOn": "2021-04-16T08:51:00.215Z"
-    }
+{
+	"done": true,
+	"_id": "60794ff40d70520fe434c212",
+	"name": "clean my room",
+	"categoryId": "60794051aea3f400c0354ecd",
+	"createdOn": "2021-04-16T08:51:00.215Z"
+}
 ```
 
 **Note: Newly modified item is returned**
@@ -366,13 +376,14 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 
 ```json
 {
-    "done": true,
-    "_id": "60794ff40d70520fe434c212",
-    "name": "clean my room",
-    "categoryId": "60794051aea3f400c0354ecd",
-    "createdOn": "2021-04-16T08:51:00.215Z"
+	"done": true,
+	"_id": "60794ff40d70520fe434c212",
+	"name": "clean my room",
+	"categoryId": "60794051aea3f400c0354ecd",
+	"createdOn": "2021-04-16T08:51:00.215Z"
 }
 ```
+
 ## DELETE ALL TODO ITEMS FOR CATEGORIES
 
 To **DELETE** all todo items of a categories, the client should make a `DELETE` request to http://localhost:5000/api/todo/many/:categoryId with the authorization header containing the **token** generated during login/register of the user in the format `Bearer token`.
@@ -403,4 +414,3 @@ REQUEST-HEADER: `"Authorization" : "Bearer token"`
 	},
 ];
 ```
-

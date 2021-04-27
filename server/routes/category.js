@@ -4,7 +4,7 @@ const router = express.Router();
 const dbUtils = require("../utility/databaseUtils");
 const Category = require("../models/category.js");
 const Todo = require("../models/todo.js")
-
+const ADMIN_USER = "admin";
 
 /* GET category by id. */
 router.get("/:categoryId", async function (req, res) {
@@ -13,7 +13,7 @@ router.get("/:categoryId", async function (req, res) {
 		const category = await dbUtils.getItemById(Category, categoryId);
 		res.json(category);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(500).json({ error });
 	}
 });
@@ -22,10 +22,10 @@ router.get("/:categoryId", async function (req, res) {
 router.get("/", async function (req, res) {
 	const user = res.locals.userData;
 	try {
-		const categoryItems = await dbUtils.getItemByField(Category, ["admin@email.com", "root@email.com"].includes(user.email) ? {} : {userId: user._id} );
+		const categoryItems = await dbUtils.getItemByField(Category, user.role === ADMIN_USER ? {} : {userId: user._id} );
 		res.json(categoryItems);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(500).json({ error });
 	}
 });
@@ -39,7 +39,7 @@ router.post("/", async function (req, res) {
 		const category = await dbUtils.addItem(Category, newCategory);
 		res.json(category);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(500).json({ error });
 	}
 });
@@ -51,14 +51,14 @@ router.put("/:categoryId", async function (req, res) {
 	const user = res.locals.userData;
 	try {
 		modifiedCategory.userId = user._id;
-		const category = await dbUtils.updateItem(
+		const category = await dbUtils.updateItemById(
 			Category,
 			categoryId,
 			modifiedCategory
 		);
 		res.json(category);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(500).json({ error });
 	}
 });
@@ -71,7 +71,7 @@ router.delete("/:categoryId", async function (req, res) {
 		const category = await dbUtils.deleteItemById(Category, categoryId);
 		res.json(category);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(500).json({ error });
 	}
 });

@@ -45,56 +45,93 @@ const PAGE = { l: "login", c: "category", t: "todo" };
 const MODE = { e: "edit", d: "delete" };
 
 export default function AppModal() {
+
 	const dispatch = useDispatch();
 	const classes = useStyles();
+
+	// For temporarily storing the edit input.
 	const [edit, setEdit] = useState("");
 
+	// Bool for showing modal
 	const showModal = useSelector((state) => state.user.showModal);
+	// Modal mode => "edit" or "delete" modal
 	const mode = useSelector((state) => state.user.modalMode);
+	// The current item requesting for the modal
 	const activeItem = useSelector((state) => state.user.selectedItem);
+	// The token for completing modal request => "edit" or "delete" requests;
 	const token = useSelector((state) => state.user.token);
+	// The current page => "category" or "todo"
 	const page = useSelector((state) => state.user.currPage);
 
+	// Gets the name of the item that activated the modal => 
 	useEffect(() => {
-		if (showModal) {
+		if (showModal && mode === MODE.e) {
 			setEdit(activeItem.name);
 		}
 	}, [showModal]);
 
+
+	/**
+	 * A function that handles the closing of the modal
+	 */
 	const handleClose = () => {
+		// Deselects the active item
 		dispatch(setSelectedItem(null));
+		// Removes the modal (by reseting)
 		dispatch(setShowModal({ mode: "", show: false }));
 	};
 
+	/**
+	 * A function that handles the completion of editing an item
+	 * 
+	 * @param {object} e - submit event object 
+	 * @returns {void}
+	 */
 	const handleEdit = (e) => {
 		e.preventDefault();
+		// If edit field is empty, do nothing
 		if (edit === "") return;
+
+		// Set the item id to be used for by request data
+		const itemId = activeItem._id;
+
+		// Form the edit request data with the date
 		const data = {
 			name: edit,
 			date: new Date(Date.now()).toISOString(),
 		};
-		const categoryId = activeItem._id;
+
+		// If in category page, send request to category endpoint
 		if (page === PAGE.c) {
-			dispatch(modifyCategoryItemAsync({ categoryId, token, data })).then(
+			dispatch(modifyCategoryItemAsync({ categoryId: itemId, data , token})).then(
 				(action) => {
 					if (action.payload) {
 						handleClose();
 					}
 				}
 			);
+			return;
 		}
+
+		// If in todo page, send request to todo endpoint
 		if (page === PAGE.t) {
-			const todoId = activeItem._id;
-			dispatch(modifyTodoItemAsync({ data, todoId, token })).then((action) => {
+			dispatch(modifyTodoItemAsync({ todoId: itemId, data, token })).then((action) => {
 				if (action.payload) {
 					handleClose();
 				}
 			});
+			return;
 		}
 	};
 
+	/**
+	 * A function that handles the completion of deleting an item
+	 */
 	const handleDelete = () => {
+		// Set the item id to be used for by request data
 		const itemId = activeItem._id;
+
+		// If in category page, send request to category endpoint
 		if (page === PAGE.c) {
 			dispatch(deleteCategoryItemAsync({ categoryId: itemId, token })).then(
 				(action) => {
@@ -105,6 +142,7 @@ export default function AppModal() {
 			);
 		}
 
+		// If in todo page, send request to todo endpoint
 		if (page === PAGE.t) {
 			dispatch(deleteTodoItemAsync({ todoId: itemId, token })).then(
 				(action) => {
@@ -116,6 +154,7 @@ export default function AppModal() {
 		}
 	};
 
+	// Edit modal context template i.e the model shown when the user tries to edit an item
 	const editModal = (
 		<Box style={{ outline: "0" }} width="100%">
 			<Grid container justify="center">
@@ -169,7 +208,8 @@ export default function AppModal() {
 			</Grid>
 		</Box>
 	);
-
+	
+	// Delete modal context template i.e the model shown when the user tries to delete an item
 	const confirmModal = (
 		<Box style={{ outline: "0" }} width="100%">
 			<Grid container justify="center">

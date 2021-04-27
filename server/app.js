@@ -17,17 +17,10 @@ const PORT = 5000;
 const apiRouter = require("./routes/index");
 
 app.use(cors());
-app.options('*',cors());
 app.use(express.json()); //Used to parse JSON bodies
 app.use(express.urlencoded({ extended: false })); //Parse URL-encoded bodies
 
-// Bad End point
-const badRoute = function (req, res) {
-	res.status(404).json({ badRequest: "The route does not exit" });
-};
-
-app.use("/api", apiRouter);
-app.use("*", badRoute);
+app.use("/", apiRouter);
 
 const server = http.createServer(app);
 

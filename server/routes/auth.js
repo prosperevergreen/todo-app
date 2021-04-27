@@ -31,7 +31,7 @@ router.get("/", async function (req, res) {
 
 		res.json({ user: clientData, token });
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(500).json({ error });
 	}
 });
@@ -55,7 +55,7 @@ router.post("/", async function (req, res) {
 
 		res.json({ user: clientData, token });
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(500).json({ error });
 	}
 });
